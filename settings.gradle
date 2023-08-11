@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            allowInsecureProtocol(true)
+            url uri('./repo')
+        }
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            allowInsecureProtocol(true)
+            url uri('./repo')
+        }
+    }
+}
+rootProject.name = "KruboAPM"
+include ':app'
+include ':apmlib'
+include ':apmplugin'
