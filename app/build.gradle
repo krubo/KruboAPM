@@ -33,6 +33,11 @@ android {
     }
 }
 
+kapm_config {
+    pkg = "com.krubo.apm;com.time.cost1"
+    methodClass = "com.time.cost2.Test2/test2;com.time.cost2.Test1/test"
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
