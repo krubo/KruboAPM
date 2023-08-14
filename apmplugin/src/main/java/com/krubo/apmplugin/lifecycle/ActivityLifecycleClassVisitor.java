@@ -14,6 +14,9 @@ public class ActivityLifecycleClassVisitor extends ClassVisitor {
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+        if ("<clinit>".equals(name) || "<init>".equals(name)) {
+            return visitor;
+        }
         return new ActivityLifecycleMethodVisitor(visitor, access, name, descriptor);
     }
 

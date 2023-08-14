@@ -29,9 +29,9 @@ public class TimeCostMethodVisitor extends AdviceAdapter {
     protected void onMethodEnter() {
         super.onMethodEnter();
         //进入这个方法
-        startTime = newLocal(Type.LONG_TYPE);
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
-        mv.visitVarInsn(LSTORE, 1);
+        startTime = newLocal(Type.LONG_TYPE);
+        mv.visitVarInsn(LSTORE, startTime);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class TimeCostMethodVisitor extends AdviceAdapter {
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
         mv.visitMethodInsn(INVOKESTATIC, "android/util/Log", "e", "(Ljava/lang/String;Ljava/lang/String;)I", false);
+//        mv.visitInsn(POP);
     }
 
     @Override
