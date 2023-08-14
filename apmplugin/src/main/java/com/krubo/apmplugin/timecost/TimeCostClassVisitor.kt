@@ -1,11 +1,17 @@
 package com.krubo.apmplugin.timecost
 
+import com.krubo.apmplugin.KApmPlugin
 import com.krubo.apmplugin.base.BaseClassVisitor
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.FieldVisitor
 import org.objectweb.asm.MethodVisitor
 
 class TimeCostClassVisitor(classVisitor: ClassVisitor) : BaseClassVisitor(classVisitor) {
+
+    override fun checkMethod(className: String, methodName: String?): Boolean {
+        return KApmPlugin.hasInPkgList(className)
+                || KApmPlugin.methodClassList.contains("$className/$methodName")
+    }
 
     override fun visitMethod(
         className: String,

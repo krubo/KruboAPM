@@ -31,14 +31,13 @@ abstract class BaseClassVisitor(classVisitor: ClassVisitor) :
         exceptions: Array<out String>?
     ): MethodVisitor? {
         val visitor = super.visitMethod(access, name, descriptor, signature, exceptions)
-        if (!KApmPlugin.hasInPkgList(className)
-            && !KApmPlugin.methodClassList.contains("$className/$name")) {
-            return visitor
-        }
         if ("<clinit>" == name || "<init>" == name) {
             return visitor
         }
-        return visitMethod(className, name, visitor, access, descriptor, signature, exceptions)
+        if (checkMethod(className, name)) {
+            return visitMethod(className, name, visitor, access, descriptor, signature, exceptions)
+        }
+        return visitor
     }
 
     override fun visitField(
@@ -51,6 +50,8 @@ abstract class BaseClassVisitor(classVisitor: ClassVisitor) :
         val visitor = super.visitField(access, name, descriptor, signature, value)
         return visitField(className, name, visitor, access, descriptor, signature, value)
     }
+
+    abstract fun checkMethod(className: String, methodName: String?): Boolean
 
     abstract fun visitMethod(
         className: String, methodName: String?, visitor: MethodVisitor?,

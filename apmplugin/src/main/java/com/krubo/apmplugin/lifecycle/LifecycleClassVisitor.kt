@@ -7,6 +7,10 @@ import org.objectweb.asm.MethodVisitor
 
 class LifecycleClassVisitor(classVisitor: ClassVisitor) : BaseClassVisitor(classVisitor) {
 
+    override fun checkMethod(className: String, methodName: String?): Boolean {
+        return false
+    }
+
     override fun visitMethod(
         className: String,
         methodName: String?,
