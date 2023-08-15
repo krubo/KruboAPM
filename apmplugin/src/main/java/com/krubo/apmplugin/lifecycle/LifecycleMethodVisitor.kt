@@ -10,15 +10,15 @@ class LifecycleMethodVisitor(
     access: Int,
     descriptor: String?
 ) : BaseMethodVisitor(className, methodName, methodVisitor, access, descriptor) {
-    override fun visitCode(className: String, methodName: String?) {
+    override fun visitCode(className: String) {
     }
 
-    override fun onMethodEnter(className: String, methodName: String?) {
+    override fun onMethodEnter(className: String) {
     }
 
-    override fun onMethodExit(className: String, methodName: String?, opcode: Int) {
+    override fun onMethodExit(className: String, opcode: Int) {
     }
 
-    override fun visitEnd(className: String, methodName: String?) {
+    override fun visitEnd(className: String) {
     }
 }

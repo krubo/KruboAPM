@@ -6,7 +6,7 @@ import org.objectweb.asm.commons.AdviceAdapter
 
 abstract class BaseMethodVisitor(
     private val className: String,
-    private val methodName: String?,
+    methodName: String?,
     methodVisitor: MethodVisitor?,
     access: Int,
     descriptor: String?
@@ -15,32 +15,32 @@ abstract class BaseMethodVisitor(
     override fun visitCode() {
         super.visitCode()
         //表示 ASM 开始扫描这个方法
-        visitCode(className, methodName)
+        visitCode(className)
     }
 
     override fun onMethodEnter() {
         super.onMethodEnter()
         //进入这个方法
-        onMethodEnter(className, methodName)
+        onMethodEnter(className)
     }
 
     override fun onMethodExit(opcode: Int) {
         super.onMethodExit(opcode)
         //即将从这个方法出去
-        onMethodExit(className, methodName, opcode)
+        onMethodExit(className, opcode)
     }
 
     override fun visitEnd() {
         super.visitEnd()
         //表示方法扫码完毕
-        visitEnd(className, methodName)
+        visitEnd(className)
     }
 
-    abstract fun visitCode(className: String, methodName: String?)
+    abstract fun visitCode(className: String)
 
-    abstract fun onMethodEnter(className: String, methodName: String?)
+    abstract fun onMethodEnter(className: String)
 
-    abstract fun onMethodExit(className: String, methodName: String?, opcode: Int)
+    abstract fun onMethodExit(className: String, opcode: Int)
 
-    abstract fun visitEnd(className: String, methodName: String?)
+    abstract fun visitEnd(className: String)
 }

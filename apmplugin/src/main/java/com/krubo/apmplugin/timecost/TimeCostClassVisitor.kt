@@ -9,8 +9,20 @@ import org.objectweb.asm.MethodVisitor
 class TimeCostClassVisitor(classVisitor: ClassVisitor) : BaseClassVisitor(classVisitor) {
 
     override fun checkMethod(className: String, methodName: String?): Boolean {
-        return KApmPlugin.hasInPkgList(className)
-                || KApmPlugin.methodClassList.contains("$className/$methodName")
+        println("checkMethod  $className")
+        if (KApmPlugin.timeCost.blackMethodClassList.contains("$className/$methodName")){
+            println("checkMethod  $className  false  1")
+            return false
+        }
+        if(KApmPlugin.hasInPkgList(className)){
+            println("checkMethod  $className  true  1")
+            return true
+        }
+        if (KApmPlugin.timeCost.methodClassList.contains("$className/$methodName")){
+            println("checkMethod  $className  true  2")
+            return true
+        }
+        return false
     }
 
     override fun visitMethod(

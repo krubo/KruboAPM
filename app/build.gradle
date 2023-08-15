@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kapm'
 }
+
+apply from: 'kapm.gradle'
 
 android {
     namespace 'com.krubo.apm'
@@ -31,11 +32,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
-
-kapm_config {
-    pkg = "com.krubo.apm;com.time.cost1"
-    methodClass = "com.time.cost2.Test2/test2;com.time.cost2.Test1/test"
 }
 
 dependencies {

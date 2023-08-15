@@ -30,10 +30,14 @@ abstract class KApmTransform : AsmClassVisitorFactory<InstrumentationParameters.
         if (className.isEmpty()) {
             return false
         }
-        if (KApmPlugin.hasInPkgList(className)){
+        if (KApmPlugin.hasInBlackClassList(className)) {
+            println("isInstrumentable   $className  false")
+            return false
+        }
+        if (KApmPlugin.hasInPkgList(className)) {
             return true
         }
-        KApmPlugin.methodClassList.forEach {
+        KApmPlugin.timeCost.methodClassList.forEach {
             if (className == it.split("/")[0]) {
                 return true
             }

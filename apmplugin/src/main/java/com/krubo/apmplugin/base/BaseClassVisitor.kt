@@ -35,6 +35,7 @@ abstract class BaseClassVisitor(classVisitor: ClassVisitor) :
             return visitor
         }
         if (checkMethod(className, name)) {
+            println("visitMethod $className   $name  $descriptor  $signature  $exceptions")
             return visitMethod(className, name, visitor, access, descriptor, signature, exceptions)
         }
         return visitor

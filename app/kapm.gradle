@@ -1,0 +1,8 @@
+apply plugin: 'kapm'
+
+kapm_config {
+    timecost_pkg = ["com.krubo.apm", "com.time.cost1"]
+    timecost_methodClass = ["com.time.cost2.Test2/test2", "com.time.cost2.Test1/test"]
+    timecost_blackClass = ["com.krubo.apm.TimeCostTest"]
+    timecost_blackMethodClass = ["com.krubo.apm.MainActivity/onResume"]
+}

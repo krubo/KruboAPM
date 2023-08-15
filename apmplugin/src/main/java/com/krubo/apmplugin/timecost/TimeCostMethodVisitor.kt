@@ -1,6 +1,6 @@
 package com.krubo.apmplugin.timecost
 
-import com.krubo.apmplugin.KApmConstants
+import com.krubo.apmplugin.Constants
 import com.krubo.apmplugin.base.BaseMethodVisitor
 
 import org.objectweb.asm.MethodVisitor
@@ -16,26 +16,26 @@ class TimeCostMethodVisitor(
 
     private var startTime = -1
 
-    override fun visitCode(className: String, methodName: String?) {
+    override fun visitCode(className: String) {
     }
 
-    override fun onMethodEnter(className: String, methodName: String?) {
+    override fun onMethodEnter(className: String) {
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false)
         startTime = newLocal(Type.LONG_TYPE)
         mv.visitVarInsn(LSTORE, startTime)
     }
 
-    override fun onMethodExit(className: String, methodName: String?, opcode: Int) {
+    override fun onMethodExit(className: String, opcode: Int) {
         val duration = newLocal(Type.LONG_TYPE)
         mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false)
         mv.visitVarInsn(LLOAD, startTime)
         mv.visitInsn(LSUB)
         mv.visitVarInsn(LSTORE, duration)
-        mv.visitLdcInsn(KApmConstants.TAG)
+        mv.visitLdcInsn(Constants.TAG)
         mv.visitTypeInsn(NEW, "java/lang/StringBuilder")
         mv.visitInsn(DUP)
         mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false)
-        mv.visitLdcInsn("ClassName: $className; Method: $methodName; duration: ")
+        mv.visitLdcInsn("ClassName: $className; Method: $name; duration: ")
         mv.visitMethodInsn(
             INVOKEVIRTUAL,
             "java/lang/StringBuilder",
@@ -68,6 +68,6 @@ class TimeCostMethodVisitor(
 //        mv.visitInsn(POP)
     }
 
-    override fun visitEnd(className: String, methodName: String?) {
+    override fun visitEnd(className: String) {
     }
 }
